@@ -107,6 +107,7 @@ body {
   margin-right: 0;
   padding-left: calc(50% - 500px);
   padding-right: calc(50% - 500px);
+  overflow: hidden;
   color:#454545;
 }
 
@@ -425,56 +426,105 @@ ul, ol {
 </ul>
 </li>
 <li>
-<a href="#toc_2">Sega Naomi</a>
+<a href="#toc_2">Machines I want</a>
+</li>
+<li>
+<a href="#toc_3">Sega Naomi</a>
 <ul>
 <li>
-<a href="#toc_3">Summary</a>
+<a href="#toc_4">Summary</a>
+</li>
+<li>
+<a href="#toc_5">Sega Naomi JVS Python</a>
+</li>
+<li>
+<a href="#toc_6">Future</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_4">Konami Viper</a>
+<a href="#toc_7">Konami Viper</a>
 <ul>
 <li>
-<a href="#toc_5">Summary</a>
+<a href="#toc_8">Summary</a>
 </li>
 <li>
-<a href="#toc_6">CF Card</a>
+<a href="#toc_9">CF Card</a>
 </li>
 <li>
-<a href="#toc_7">Current Status</a>
+<a href="#toc_10">Reflow</a>
+</li>
+<li>
+<a href="#toc_11">Current Status</a>
 </li>
 </ul>
 </li>
 <li>
-<a href="#toc_8">Namco System 245/256</a>
+<a href="#toc_12">Namco System 245/256</a>
 <ul>
 <li>
-<a href="#toc_9">Introduction</a>
+<a href="#toc_13">Introduction</a>
 </li>
 <li>
-<a href="#toc_10">Summary of Tasks</a>
+<a href="#toc_14">Summary of Tasks</a>
 </li>
 </ul>
 </li>
 </ul>
 
 
-<h1 id="toc_2">Sega Naomi</h1>
+<h1 id="toc_2">Machines I want</h1>
 
-<h2 id="toc_3">Summary</h2>
+<p>There is a long list of machines I want, however I&#39;ve attempted to note down the ones I <strong>really</strong> want here.</p>
+
+<ul>
+<li>Sega Chihiro (So I can play HOTD3 etc.)</li>
+<li>Sega Lindbergh Multiboot (So I can play Lets go Jungle)</li>
+<li>Konami Viper Working! (So I can play Jurassic Park)</li>
+<li>Super System 23 (So I can play Time Crisis 1)</li>
+<li>Namco System 246/256 (As it supports JVS)</li>
+</ul>
+
+<h1 id="toc_3">Sega Naomi</h1>
+
+<h2 id="toc_4">Summary</h2>
 
 <p>I have recently got my hands on a Sega Naomi and 512Mb NetDimm. I aim to get this setup and write a JVS interface for it with an Arduino. Although there are already projects around that do this, I wish to get the LightGun interface working and I cannot find anyone that does this yet.</p>
 
 <p>I aim to use the GunCon guns from the PlayStation 1/2 and reverse engineer how these work for use with my system.</p>
 
-<h1 id="toc_4">Konami Viper</h1>
+<h2 id="toc_5">Sega Naomi JVS Python</h2>
 
-<h2 id="toc_5">Summary</h2>
+<blockquote>
+<p>21st April 2017</p>
+</blockquote>
+
+<p>I have successfully written a JVS I/O emulator in python and have managed to play lots of games on the Naomi with my current setup.</p>
+
+<p>The JVS emulator allows me to pretend to have any I/O plugged in that I like, this allows me to play driving games, shooting games and joystick games with my computer with any controller device I like.</p>
+
+<p>A link to me playing the game Maze Of Kings with a wii remote is here: <a href="https://www.youtube.com/watch?v=T5MW_Vc_1I0&amp;t=18s">Youtube Video Link</a></p>
+
+<h2 id="toc_6">Future</h2>
+
+<p>I have plans of creating a PCB with an ATMEGA16 chip which can emulate any type of JVS I/O device.</p>
+
+<p>On the side of the PCB I&#39;ll include screw block type connectors so that controls can be easily wired to the JVS device. I&#39;ll also have either some dip switches, or a connection to the computer so you can setup the capabilities of the device, and set things like digital joystick to analogue conversion.</p>
+
+<p>Things that I can do with a custom I/O Board include:</p>
+
+<ul>
+<li>Simulate analogue controls, so you can use your joystick to play driving games</li>
+<li>Allow you to change which I/O the device is emulating, so that you can play whatever game regardless of what I/O it wants.</li>
+</ul>
+
+<h1 id="toc_7">Konami Viper</h1>
+
+<h2 id="toc_8">Summary</h2>
 
 <p>I have currently got a Konami Viper PCB running Thrill Drive 2. Unforunately the PCB doesn&#39;t work and so I am going through the process of testing different parts of the system to get it working.</p>
 
-<h2 id="toc_6">CF Card</h2>
+<h2 id="toc_9">CF Card</h2>
 
 <p>The games for this device are stored on a CF card. Some have reported that the CF card can become corrupt and this may stop the game functioning. To check if the CF is courrupt you can take it out of the card slot 2, by pressing the ejection button, and then remove the CF card from the CF to PCMCIA adapter. You are then able to insert it into a computer for reading and writing.</p>
 
@@ -488,17 +538,27 @@ ul, ol {
 
 <p>In my case the diff command said there where no differences in the file, which allowed me to conclude that the CF card was working fine! To test even further I could dump the CF card, and then insert it into MAME to see if it runs properly.</p>
 
-<h2 id="toc_7">Current Status</h2>
+<h2 id="toc_10">Reflow</h2>
 
-<p>Currently I am waiting on my farther to reflow the BGA graphics chip, as I suspect that this may be the problem.</p>
+<p>I managed to get someone to reflow the graphics chip, however unforunately it looks like it has shorted something out in the board. This sometimes happens when you reflow as the solder manages to stick together, or the BGA chip actually moves a few ball grids out.</p>
 
-<h1 id="toc_8">Namco System 245/256</h1>
+<p>When powered up the machine simply lights up all the LEDS. I&#39;ve read online that this means &#39;hardware fault&#39;, however I beleive that the LEDs simply light by default and it means that the processor hasn&#39;t actually started or written any of the code to the FPGA chips which probably control the LEDS.</p>
 
-<h2 id="toc_9">Introduction</h2>
+<p>I would also like to note that I haven&#39;t actually managed to get the power to 5 volts, and it has been at about 4.84 at most - I&#39;m thinking that this is probably enough to start the board, and I don&#39;t have any power supply that can supply more.</p>
+
+<h2 id="toc_11">Current Status</h2>
+
+<p>Unforunately the board doesn&#39;t look like I&#39;ll be able to recover it myself, and so I will be selling the package on ebay to get some more money to buy other boards.</p>
+
+<p>Was good fun and learnt alot; still want to be able to play Jurassic Park 3 so might have to snap up and working Konami Viper soon.</p>
+
+<h1 id="toc_12">Namco System 245/256</h1>
+
+<h2 id="toc_13">Introduction</h2>
 
 <p>Currently I am working on modifying the PCSX2 emulator to run Namco System 256 games. In this document I will explain the current progress, and note down what I have done for others to continue on.</p>
 
-<h2 id="toc_10">Summary of Tasks</h2>
+<h2 id="toc_14">Summary of Tasks</h2>
 
 <ul>
 <li>Get the BIOS from the System 245/256 to run on PCSX2 [DONE]</li>
