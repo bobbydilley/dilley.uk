@@ -1,7 +1,6 @@
 body {
   font-family: 'Open Sans', sans-serif;
   font-size:14px;
-  background-color:#F9FAFB;
   padding:0;
   margin:0;
   overflow: hidden;
@@ -30,6 +29,10 @@ nav {
   padding-top:40px;
 }
 
+nav h1 {
+  color:#fff;
+}
+
 nav {
   position:fixed;
   top:0px;
@@ -40,7 +43,7 @@ nav {
 main {
   position:fixed;
   background-color:#F9FAFB;
-  top:50px;
+  top:80px;
   width:100vw;
   height:calc(100vh + 30px);
   display:block;
