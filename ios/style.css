@@ -1,0 +1,33 @@
+body {
+  font-family: 'Open Sans', sans-serif;
+  font-size:14px;
+  background-color:#F9FAFB;
+  padding:0;
+  margin:0;
+}
+
+nav, section {
+  display:inline-block;
+  width:90%;
+  margin-left:5%;
+  margin-right:5%;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
+nav {
+  margin:0;
+  padding-left:5%;
+  padding-right:5%;
+  background-color:#232935;
+  color:#fff;
+}
+
+.iosnav {
+  position:absolute;
+  background-color:#232935;
+  width:100%;
+  top:-50px;
+  left:0;
+  height:50px;
+}
