@@ -4,7 +4,7 @@ window.onload = function() {
   window.scrollBy(0, 30);
 
   // Stop anyone now scrolling the window
-  window.addEventListener('touchstart', function (e) {
+  /*window.addEventListener('touchstart', function (e) {
       firstMove = true;
   });
 
@@ -14,5 +14,5 @@ window.onload = function() {
 
           firstMove = false;
       }
-  });
+  });*/
 }
