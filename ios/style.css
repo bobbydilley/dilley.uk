@@ -34,8 +34,9 @@ nav {
 }
 
 section {
+  height:100%;
   overflow:scroll;
-  -webkit-overflow-scrolling: touch; 
+  -webkit-overflow-scrolling: touch;
 }
 
 
@@ -43,6 +44,5 @@ main {
   width:100vw;
   height:calc(100vh + 30px);
   display:block;
-  overflow:scroll;
-  -webkit-overflow-scrolling: touch;
+  overflow:none;
 }
