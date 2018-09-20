@@ -38,6 +38,8 @@ nav {
 }
 
 main {
+  position:fixed;
+  background-color:#F9FAFB;
   top:50px;
   width:100vw;
   height:calc(100vh + 30px);
