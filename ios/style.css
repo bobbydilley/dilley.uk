@@ -29,10 +29,6 @@ nav {
   padding-top:40px;
 }
 
-nav h1 {
-  color:#fff;
-}
-
 nav {
   position:fixed;
   top:0px;
@@ -40,10 +36,15 @@ nav {
   left:0;
 }
 
+section {
+  position:fixed;
+  top:80px;
+}
+
 main {
   position:fixed;
   background-color:#F9FAFB;
-  top:80px;
+
   width:100vw;
   height:calc(100vh + 30px);
   display:block;
