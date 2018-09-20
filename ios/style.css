@@ -21,13 +21,13 @@ nav {
   padding-right:5%;
   background-color:#232935;
   color:#fff;
+  padding-top:20px;
 }
 
-.iosnav {
-  position:absolute;
-  background-color:#232935;
-  width:100%;
-  top:-50px;
-  left:0;
-  height:50px;
+main {
+  width:100vw;
+  height:calc(100vh + 10px);
+  display:block;
+  background-color:#f00;
+  overflow:scroll;
 }
