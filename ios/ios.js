@@ -1,17 +1,18 @@
-window.onload = function() {
-  window.scrollBy(0, 30);
-}
-
 var firstMove;
+window.onload = function() {
+  // Scroll the window
+  window.scrollBy(0, 30);
 
-window.addEventListener('touchstart', function (e) {
-    firstMove = true;
-});
+  // Stop anyone now scrolling the window
+  window.addEventListener('touchstart', function (e) {
+      firstMove = true;
+  });
 
-window.addEventListener('touchmove', function (e) {
-    if (firstMove) {
-        e.preventDefault();
+  window.addEventListener('touchmove', function (e) {
+      if (firstMove) {
+          e.preventDefault();
 
-        firstMove = false;
-    }
-});
+          firstMove = false;
+      }
+  });
+}
