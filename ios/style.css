@@ -5,6 +5,7 @@ body {
   padding:0;
   margin:0;
   overflow: hidden;
+  background-color:#232935;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -31,12 +32,13 @@ nav {
 
 nav {
   position:fixed;
-  top:-20px;
+  top:0px;
   width:100%;
   left:0;
 }
 
 main {
+  top:50px;
   width:100vw;
   height:calc(100vh + 30px);
   display:block;
