@@ -4,11 +4,13 @@ window.onload = function() {
   window.scrollTo(0, 30);
   // Stop anyone now scrolling the window
   window.addEventListener('touchstart', function (e) {
+    e.preventDefault();
       firstMove = true;
       window.scrollTo(0, 30);
   });
 
   window.addEventListener('touchmove', function (e) {
+    e.preventDefault();
       if (firstMove) {
           e.preventDefault();
           firstMove = false;
@@ -20,11 +22,13 @@ window.onload = function() {
 
 // Stop anyone now scrolling the window
 window.addEventListener('touchstart', function (e) {
+  e.preventDefault();
     firstMove = true;
     window.scrollTo(0, 30);
 });
 
 window.addEventListener('touchmove', function (e) {
+  e.preventDefault();
     if (firstMove) {
         e.preventDefault();
         firstMove = false;
