@@ -1,0 +1,21 @@
+<html>
+  <head>
+    <title>Example</title>
+  </head>
+  <body>
+    <div id="text"></div>
+  </body>
+  <script>
+    if (window.DeviceOrientationEvent) {
+      window.addEventListener('deviceorientation', function(eventData) {
+        var compassdir;
+        if(event.webkitCompassHeading) {
+          compassdir = event.webkitCompassHeading;  
+        } else {
+          compassdir = event.alpha;
+        }
+        document.getElementById('text').innerHTML = compassdir;
+      });
+    }
+  </script>
+</html>
