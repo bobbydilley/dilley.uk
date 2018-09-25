@@ -30,7 +30,7 @@
         } else {
           compassdir = event.alpha;
         }
-        gamma = Math.round(event.gamma);
+        gamma = event.gamma.toFixed(2);
         document.getElementById('compass').innerHTML = compassdir;
         document.getElementById('gyro').innerHTML = gamma;
       });
