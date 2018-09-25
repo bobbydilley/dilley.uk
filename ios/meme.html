@@ -1,20 +1,39 @@
 <html>
   <head>
     <title>Example</title>
+    <style>
+      body {
+       font-size:50px; 
+      }
+      
+      #compass {
+       color:#f00;
+       margin-bottom:50px;
+      }
+      
+      #gyro {
+       color:#0f0; 
+      }
+    </style>
   </head>
   <body>
-    <div id="text"></div>
+    <div id="compass"></div>
+    <div id="gyro"></div>
   </body>
   <script>
     if (window.DeviceOrientationEvent) {
       window.addEventListener('deviceorientation', function(eventData) {
         var compassdir;
+        var beta, gamma;
         if(event.webkitCompassHeading) {
           compassdir = event.webkitCompassHeading;  
         } else {
           compassdir = event.alpha;
         }
-        document.getElementById('text').innerHTML = compassdir;
+        beta = event.beta;
+        gamma = event.gamma;
+        document.getElementById('compass').innerHTML = compassdir;
+        document.getElementById('gyro').innerHTML = gamma;
       });
     }
   </script>
