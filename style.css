@@ -259,8 +259,8 @@ main section h2, h3, h4, h5, h6 {
   margin-bottom:15px;
 }
 
-main section p {
-  line-height:25px;
+main section p, li {
+  line-height:28px;
   font-size: 15px;
   color: #888888;
   margin-top:0px;
