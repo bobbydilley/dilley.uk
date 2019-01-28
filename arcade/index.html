@@ -1,113 +1,142 @@
 <html>
-	<head>
-		<title>Bobby Dilley - Arcades</title>
-		<link rel="stylesheet" href="../style.css">
-	</head>
-	<body>
-		<header>
-	      <nav>
-		<div class="left">
-		  BobbyDilley
-		</div>
 
-		<div class="right">
-		  <a href="/">HOME</a>
-		  <a href="/projects">PROJECTS</a>
-		  <a href="/contact">CONTACT</a>
-		  <a target="_blank" href="https://twitter.com/bobbydilleyuk"><img src="/twitter_logo_dark.png" height="12px"/></a>
-		</div>
-	      </nav>
+<head>
+    <title>Bobby Dilley - Arcades</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
 
-	      <section class="center">
-		<h1>Arcade Section</h1>
-		<p>All about arcade hardware!</p>
-	      </section>
-	    </header>
-		<nav>
-			<div class="left">
-			  <a href="/">NAOMI</a>
-			  <a href="/projects">LINDBERGH</a>
-			  <a href="/contact">SYSTEM SP</a>
-			</div>
-		</nav>
-		<main>
-			<section>
+<body>
+    <header>
+        <nav>
+            <div class="left">
+                BobbyDilley
+            </div>
 
-				<p>
-				This part of by website details my endevours with arcade hardware, which bits i've got and what I want. Please feel free to contact me if you've got any questions, or want to buy or sell anything you think I would be interested in!
-				</p>
-				
-				<p>
-				Here is the link to my VAPS profile: <a href="https://www.arcade-museum.com/members/member_detail.php?member_id=485410">VAPS Profile</a>	
-				</p>
-				<h2>Arcade Hardware List</h2>
-				<p>My aim is to collect all the Sega hardware between the Naomi and the Lindbergh. Below is the list of hardwares, and which ones I've got.</p>
-				<ul>
-					<li><strong>Sega Naomi</strong>  - Got</li>
-					<li><strong>Sega Hikaru</strong>  - Want</li>
-					<li><strong>Sega Naomi Multiboard</strong>  - Don't really want</li>
-					<li><strong>Sega Naomi 2</strong>  - Want</li>
-					<li><strong>Sega Triforce</strong>  - Don't Want</li>
-					<li><strong>Sega Chihiro</strong>  - Want</li>
-					<li><strong>Sega Lindbergh</strong>  - Got</li>
-					<li><strong>Sega System SP</strong> - Got</li>
-				</ul>
-				<h2>Things For Sale</h2>
-				<ul>
-					<li>Sega Lindbergh Geforce 6800 Graphics Card - £60</li>
-					<li>The House Of The Dead 4 CF + HDD + DVD + KEYCHIP - £60</li>
-					<li>The Houes Of The Dead 3 Gun Sensor - SOLD</li>
-					<li>Non Working Konami Viper - £20</li>
-				</ul>
-				<h2>Things I've got</h2>
-				<ul>
-					<li>Sega Naomi with NetDimm</li>
-					<li>Sega Lindbergh with House Of The Dead 4 (and own custom Multi)</li>
-					<li>Konami Viper with Thrill Drive(Broken)</li>
-					<li>Namco Recoil Gun</li>
-					<li>The House Of The Dead 3 gun</li>
-					<li>Namco HVBUF PCB</li>
-					<li>The House Of The Dead 4 Installation DVD</li>
-				</ul>
+            <div class="right">
+                <a href="/">HOME</a>
+                <a href="/projects">PROJECTS</a>
+                <a href="/contact">CONTACT</a>
+                <a target="_blank" href="https://twitter.com/bobbydilleyuk"><img src="/twitter_logo_dark.png" height="12px" /></a>
+            </div>
+        </nav>
 
-				<h2>Things I want</h2>
-				<ul>
-					<li>Let's Go Jungle Special (working on)</li>
-					<li>Working Konami Viper for Jurassic Park 3</li>
-					<li>Sega Chihiro for House Of The Dead 3</li>
-					<li>Time Crisis 1 PCB (System Super 22)</li>
-					<li>Ninja Assult Cart</li>
-				</ul>
+        <section class="center">
+            <h1>Arcade Section</h1>
+            <p>All about arcade hardware!</p>
+        </section>
+    </header>
 
-				<h2>Things I'm working on</h2>
-				<h3>Let's Go Jungle Special</h3>
-				<p>Big machines are always better, right? After getting Let's Go Jungle to work on my Lindbergh, I've set my sights on the Let's Go Jungle Special edition, which is a much larger theatre version of the original game with a moving seat and 2 screens. I've currently got access to the installation DVD and am waiting for the security chip. Once I've got these the plan is to modify the game, and adapt OpenJVS to pretend to be the moving chair etc. and allow the game to run!</p>
-				<h4>14th December 2018</h4>
-				<p>As a little update I've managed to get Let's Go Jungle Special to run without the security chip. The service menu for the game has lots of interesting features, and a large set of inputs and I will do a write up on the game at some point in the future.</p>
-				
-				<h3>OpenJVS</h3>
-				<p>I'm currently working on a project called OpenJVS. The project aims to emulate a JVS I/O board, so that you can play any arcade game with controllers plugged into a computer or Raspberry Pi. The project is going smoothly, and is in a good working state at the moment. In the future I aim to make it easier to use, and maybe produce a dedicated PCB board to make the software run more smoothly. The project can be visited here: <a href="https://github.com/bobbydilley/OpenJVS">OpenJVS</a>.</p>
+    <main>
 
-				<h3>Namco System 256 Emulator</h3>
-				<p>After finding out that the bios rom from the System 256 ran on the PCSX2 emulator, I tried to see if I could get a game to boot. I made some progress, and started to modify the emulator to read the memory cards properly however stopped working on the project when other projects came into life. I've now passed on my information to someone else who is going to take on the project!</p>
+        <section>
+            <div class="nav">
+                <h3><a onclick="toggleHide('projects');">Projects</h3>
+                <ul id="projects">
+                    <li><a href="/">Introduction</a></li>
+                    <li><a href="openjvs/">OpenJVS</a></li>
+                </ul>
+                <h3><a onclick="toggleHide('hardware');">Hardware</h3>
+                <ul id="hardware">
+                    <li><a href="naomi/">Sega Naomi</a></li>
+                    <li><a href="hikaru/">Sega Hikaru</a></li>
+                    <li><a href="naomi-2/">Sega Naomi 2</a></li>
+                    <li><a href="triforce/">Sega Triforce</a></li>
+                    <li><a href="chihiro/">Sega Chihiro</a></li>
+                    <li><a href="lindbergh/">Sega Lindbergh</a></li>
+                    <li><a href="system=sp/">Sega System SP</a></li>
+                </ul>
+            </div>
+            <div class="content">
+                <h2>Arcade Hardware List</h2>
+                <p>
+                    This part of by website details my endevours with arcade hardware, which bits i've got and what I want. Please feel free to contact me if you've got any questions, or want to buy or sell anything you think I would be interested in!
+                </p>
 
+                <p>
+                    Here is the link to my VAPS profile: <a href="https://www.arcade-museum.com/members/member_detail.php?member_id=485410">VAPS Profile</a>
+                </p>
 
-				<h3>OptoGun PCB</h3>
-				<p>After buying a Namco Recoil gun, I felt that there wasn't a PCB that would do cheep optical light gun (for use with a CRT monitor) detection for JVS. I aim to create a board which would easily link to a VGA monitor and allow the gun to be used for games on the Naomi, Chihiro and Lindbergh.</p>
-			</section>
-		</main>
-		
-		<footer>
-		      <div class="left">
-			Site from scratch by Bobby Dilley
-		      </div>
-		      <div class="right">
-			<a href="/">Home</a>
-			<a href="/projects">Projects</a>
-			<a href="/contact">Contact</a>
-			<a href="/arcade">Arcade</a>
-			<a href="https://github.com/bobbydilley">Github</a>
-		      </div>
-		    </footer>
-	</body>
+                <p>My aim is to collect all the Sega hardware between the Naomi and the Lindbergh. Below is the list of hardwares, and which ones I've got.</p>
+                <ul>
+                    <li><strong>Sega Naomi</strong> - Got</li>
+                    <li><strong>Sega Hikaru</strong> - Want</li>
+                    <li><strong>Sega Naomi Multiboard</strong> - Don't really want</li>
+                    <li><strong>Sega Naomi 2</strong> - Want</li>
+                    <li><strong>Sega Triforce</strong> - Don't Want</li>
+                    <li><strong>Sega Chihiro</strong> - Want</li>
+                    <li><strong>Sega Lindbergh</strong> - Got</li>
+                    <li><strong>Sega System SP</strong> - Got</li>
+                </ul>
+                <h2>Things For Sale</h2>
+                <ul>
+                    <li>Sega Lindbergh Geforce 6800 Graphics Card - £60</li>
+                    <li>The House Of The Dead 4 CF + HDD + DVD + KEYCHIP - £60</li>
+                    <li>The Houes Of The Dead 3 Gun Sensor - SOLD</li>
+                    <li>Non Working Konami Viper - £20</li>
+                </ul>
+                <h2>Things I've got</h2>
+                <ul>
+                    <li>Sega Naomi with NetDimm</li>
+                    <li>Sega Lindbergh with House Of The Dead 4 (and own custom Multi)</li>
+                    <li>Konami Viper with Thrill Drive(Broken)</li>
+                    <li>Namco Recoil Gun</li>
+                    <li>The House Of The Dead 3 gun</li>
+                    <li>Namco HVBUF PCB</li>
+                    <li>The House Of The Dead 4 Installation DVD</li>
+                </ul>
+
+                <h2>Things I want</h2>
+                <ul>
+                    <li>Let's Go Jungle Special (working on)</li>
+                    <li>Working Konami Viper for Jurassic Park 3</li>
+                    <li>Sega Chihiro for House Of The Dead 3</li>
+                    <li>Time Crisis 1 PCB (System Super 22)</li>
+                    <li>Ninja Assult Cart</li>
+                </ul>
+
+                <h2>Things I'm working on</h2>
+                <h3>Let's Go Jungle Special</h3>
+                <p>Big machines are always better, right? After getting Let's Go Jungle to work on my Lindbergh, I've set my sights on the Let's Go Jungle Special edition, which is a much larger theatre version of the original game with a moving seat and 2 screens. I've currently got access to the installation DVD and am waiting for the security chip. Once I've got these the plan is to modify the game, and adapt OpenJVS to pretend to be the moving chair etc. and allow the game to run!</p>
+                <h4>14th December 2018</h4>
+                <p>As a little update I've managed to get Let's Go Jungle Special to run without the security chip. The service menu for the game has lots of interesting features, and a large set of inputs and I will do a write up on the game at some point in the future.</p>
+
+                <h3>OpenJVS</h3>
+                <p>I'm currently working on a project called OpenJVS. The project aims to emulate a JVS I/O board, so that you can play any arcade game with controllers plugged into a computer or Raspberry Pi. The project is going smoothly, and is in a good working state at the moment. In the future I aim to make it easier to use, and maybe produce a dedicated PCB board to make the software run more smoothly. The project can be visited here: <a href="https://github.com/bobbydilley/OpenJVS">OpenJVS</a>.</p>
+
+                <h3>Namco System 256 Emulator</h3>
+                <p>After finding out that the bios rom from the System 256 ran on the PCSX2 emulator, I tried to see if I could get a game to boot. I made some progress, and started to modify the emulator to read the memory cards properly however stopped working on the project when other projects came into life. I've now passed on my information to someone else who is going to take on the project!</p>
+
+                <h3>OptoGun PCB</h3>
+                <p>After buying a Namco Recoil gun, I felt that there wasn't a PCB that would do cheep optical light gun (for use with a CRT monitor) detection for JVS. I aim to create a board which would easily link to a VGA monitor and allow the gun to be used for games on the Naomi, Chihiro and Lindbergh.</p>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="left">
+            Site from scratch by Bobby Dilley
+        </div>
+        <div class="right">
+            <a href="/">Home</a>
+            <a href="/projects">Projects</a>
+            <a href="/contact">Contact</a>
+            <a href="/arcade">Arcade</a>
+            <a href="https://github.com/bobbydilley">Github</a>
+        </div>
+    </footer>
+
+    <script>
+        function toggleHide(div_id) {
+            var x = document.getElementById(div_id);
+            if (x.style.display === "none") {
+                x.style.display = "block";
+            } else {
+                x.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+
 </html>

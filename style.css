@@ -320,6 +320,32 @@ p strong {
   border-radius:5px;
 }
 
+/* -- Blog -- */
+
+.nav {
+  width:20%;
+  float:right;
+  text-align:left;
+  display:inline;
+}
+
+.nav ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+
+.nav a {
+  color:inherit;
+  cursor:pointer;
+}
+
+.content {
+  width:70%;
+  float:left;
+  display:inline;
+}
+
 
 /* -- Responsive Code -- */
 @media (max-width: 1100px) {
@@ -380,5 +406,10 @@ p strong {
     margin:0;
     padding:0;
     margin-top:40px;
+  }
+
+  .nav, .content {
+    display:block;
+    width:100%;
   }
 }
