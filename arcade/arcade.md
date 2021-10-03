@@ -10,9 +10,6 @@ Welcome to the arcade section of the website. This is where I write down all of 
 
 There is a long list of machines I want, however I've attempted to note down the ones I __really__ want here.
 
-- Sega Chihiro (So I can play HOTD3 etc.)
-- Sega Lindbergh Multiboot (So I can play Lets go Jungle)
-- Konami Viper Working! (So I can play Jurassic Park)
 - Super System 23 (So I can play Time Crisis 1)
 - Namco System 246/256 (As it supports JVS)
 

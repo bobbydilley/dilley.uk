@@ -346,6 +346,18 @@ p strong {
   display:inline;
 }
 
+/* Modern Flex */
+
+.flex {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.flex-text {
+  max-width: 500px;
+}
+
 
 /* -- Responsive Code -- */
 @media (max-width: 1100px) {
@@ -360,6 +372,14 @@ p strong {
 }
 
 @media (max-width: 750px) {
+
+  .flex {
+    display: block;
+  }
+
+  .flex-text {
+    max-width: none;
+  }
 
   .thin {
     width:90%;
