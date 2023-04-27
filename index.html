@@ -17,16 +17,32 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <!-- End Google Tag Manager -->
   <script>
     var _hsp = window._hsp = window._hsp || [];
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
 
     // analytics
     _hsp.push(['addPrivacyConsentListener', function(consent) {
-        console.log("Analytics");
-        console.log(consent.categories.analytics);
+        console.log("hubspot update");
+        console.log(consent.categories);
         if(consent.categories.analytics) {
-         gtag('consent', 'update', {
-          'analytics_storage': 'granted'
-        }); 
+           console.log("analytics granted");
+           gtag('consent', 'update', {
+              'analytics_storage': 'granted'
+            }); 
+        console.log(window.dataLayer);
+          
         }
+      
+      if(consent.categories.advertisement) {
+           console.log("advertisement granted");
+           gtag('consent', 'update', {
+              'ad_storage': 'granted'
+            }); 
+        console.log(window.dataLayer);
+        
+        }
+      
+ 
     }]);
   </script>
   <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/27062460.js"></script>
