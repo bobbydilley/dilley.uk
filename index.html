@@ -21,7 +21,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     // analytics
     _hsp.push(['addPrivacyConsentListener', function(consent) {
         console.log("Analytics");
-        console.log(consent.categories.analytics); 
+        console.log(consent.categories.analytics);
+        if(consent.categories.analytics) {
+         gtag('consent', 'update', {
+          'analytics_storage': 'granted'
+        }); 
+        }
     }]);
   </script>
   <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/27062460.js"></script>
