@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WebUSB claim probe</title>
+<style>
+  :root { --bg:#f3f5f4; --surface:#fff; --ink:#14201c; --muted:#5a6a64; --line:#d5ddd9; --accent:#0b5d7a; --accent-ink:#fff; --warn:#b3342b; --ok:#0f7a4d; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#101614; --surface:#18211e; --ink:#e6efeb; --muted:#93a49d; --line:#2b3a35; --accent:#5cc0e0; --accent-ink:#06222c; --warn:#ff8a80; --ok:#4fd39a; } }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; }
+  main { max-width: 860px; margin:0 auto; padding:1.25rem 1rem 4rem; }
+  h1 { font-size:1.5rem; margin:0 0 .3rem; }
+  p { margin:.3rem 0 .8rem; color:var(--muted); max-width:70ch; }
+  .card { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:1rem; margin:0 0 .9rem; }
+  .card h2 { font-size:1rem; margin:0 0 .2rem; }
+  .row { display:flex; gap:.6rem; flex-wrap:wrap; margin:.5rem 0 0; }
+  button { font:inherit; font-weight:600; min-height:48px; padding:.5rem 1.1rem; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:var(--accent-ink); cursor:pointer; }
+  button.ghost { background:transparent; color:var(--accent); }
+  button.danger { background:var(--warn); border-color:var(--warn); color:#fff; }
+  button:disabled { opacity:.4; cursor:not-allowed; }
+  button:focus-visible, select:focus-visible { outline:3px solid var(--ink); outline-offset:2px; }
+  select { font:inherit; min-height:48px; padding:.4rem .6rem; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--ink); max-width:100%; }
+  .banner { border:1px solid var(--warn); border-radius:10px; padding:.8rem 1rem; margin:0 0 1rem; color:var(--ink); background:var(--surface); }
+  .banner b { color:var(--warn); }
+  pre { margin:.6rem 0 0; padding:.7rem .8rem; border-radius:8px; background:var(--bg); border:1px solid var(--line); font:.85rem/1.45 ui-monospace,Menlo,Consolas,monospace; white-space:pre-wrap; word-break:break-word; max-height:22rem; overflow:auto; min-height:2.6rem; }
+  .ok { color:var(--ok); } .bad { color:var(--warn); }
+</style>
+</head>
+<body>
+<main>
+  <h1>WebUSB claim probe</h1>
+  <p>Picks a USB device, shows every interface with its class, and lets you step up from read-only inspection to opening the device and claiming one interface. Each step is a separate button, and nothing is sent to the device: no control transfers, no reads, no writes.</p>
+
+  <div class="banner">
+    <b>Do this parked, with the car in Park.</b> Claiming an interface detaches whatever driver was using it, so that function stops until you release it or restart the car's media system. Don't claim interfaces on the modem or anything you suspect carries alerts or chimes.
+  </div>
+
+  <div class="card">
+    <h2>1. Choose and inspect (read-only)</h2>
+    <p>Reads descriptors the browser already collected. The device is not opened.</p>
+    <div class="row"><button id="pick">Choose USB device</button><button id="granted" class="ghost">Use already granted device</button></div>
+    <pre id="info">Nothing selected.</pre>
+  </div>
+
+  <div class="card">
+    <h2>2. Open</h2>
+    <p>Opens a session and selects a configuration if none is active. Still sends no data.</p>
+    <div class="row"><button id="open" disabled>Open device</button></div>
+  </div>
+
+  <div class="card">
+    <h2>3. Claim one interface</h2>
+    <p>Interfaces in protected classes (audio, HID, video, mass storage and a few others) are blocked by the browser and will fail here. That is expected for a standard audio interface.</p>
+    <div class="row"><select id="ifaces" disabled aria-label="Interface to claim"></select><button id="claim" class="danger" disabled>Claim interface</button><button id="release" class="ghost" disabled>Release and close</button></div>
+  </div>
+
+  <div class="card">
+    <h2>Log</h2>
+    <pre id="log" aria-live="polite"></pre>
+  </div>
+</main>
+
+<script>
+(function () {
+  "use strict";
+  const $ = (id) => document.getElementById(id);
+  const PROTECTED = new Set([0x01, 0x03, 0x07, 0x08, 0x0B, 0x0E, 0x10, 0xE0]);
+  const CLASS_NAMES = { 0x01:"audio", 0x02:"comms/CDC", 0x03:"HID", 0x05:"physical", 0x06:"image", 0x07:"printer", 0x08:"mass storage", 0x09:"hub", 0x0A:"CDC data", 0x0B:"smart card", 0x0D:"content security", 0x0E:"video", 0x10:"audio/video", 0xDC:"diagnostic", 0xE0:"wireless", 0xEF:"misc", 0xFE:"application", 0xFF:"vendor-specific" };
+  const hex = (n, w) => "0x" + (n >>> 0).toString(16).toUpperCase().padStart(w, "0");
+  const cname = (c) => (CLASS_NAMES[c] || "unknown") + " " + hex(c, 2);
+
+  let dev = null;
+  let claimed = null;
+
+  function log(msg, cls) {
+    const l = $("log");
+    const line = document.createElement("div");
+    if (cls) line.className = cls;
+    line.textContent = new Date().toLocaleTimeString() + "  " + msg;
+    l.appendChild(line);
+    l.scrollTop = l.scrollHeight;
+  }
+
+  if (!window.isSecureContext || !("usb" in navigator)) {
+    log("WebUSB unavailable: " + (!window.isSecureContext ? "page is not a secure context." : "navigator.usb is missing."), "bad");
+    $("pick").disabled = true; $("granted").disabled = true;
+  }
+
+  function interfacesOf(d) {
+    const out = [];
+    const cfg = d.configuration || d.configurations[0];
+    if (!cfg) return out;
+    cfg.interfaces.forEach(i => {
+      const alt = i.alternates[0];
+      out.push({ number: i.interfaceNumber, cls: alt.interfaceClass, sub: alt.interfaceSubclass, proto: alt.interfaceProtocol, eps: alt.endpoints.length, claimed: i.claimed });
+    });
+    return out;
+  }
+
+  function show(d) {
+    dev = d; claimed = null;
+    const ifs = interfacesOf(d);
+    const lines = [
+      (d.productName || "(no name)") + " by " + (d.manufacturerName || "unknown"),
+      "vendor " + hex(d.vendorId, 4) + "  product " + hex(d.productId, 4) + "  device class " + cname(d.deviceClass),
+      "serial: " + (d.serialNumber || "none") + "  opened: " + d.opened,
+      "configurations: " + d.configurations.length,
+      "",
+      "Interfaces" + (d.configuration ? "" : " (from configuration 1, device not opened)") + ":"
+    ];
+    ifs.forEach(i => lines.push("  #" + i.number + "  " + cname(i.cls) + "  sub " + hex(i.sub, 2) + "  proto " + hex(i.proto, 2) + "  endpoints " + i.eps + (PROTECTED.has(i.cls) ? "  [protected, will be blocked]" : "")));
+    $("info").textContent = lines.join("\n");
+    $("open").disabled = false;
+    $("claim").disabled = true; $("release").disabled = true;
+    fillSelect(ifs);
+    log("Selected " + (d.productName || "device") + " (" + hex(d.vendorId, 4) + ":" + hex(d.productId, 4) + ")");
+  }
+
+  function fillSelect(ifs) {
+    const s = $("ifaces");
+    s.textContent = "";
+    ifs.forEach(i => {
+      const o = document.createElement("option");
+      o.value = i.number;
+      o.textContent = "Interface " + i.number + " · " + cname(i.cls) + (PROTECTED.has(i.cls) ? " (protected)" : "");
+      s.appendChild(o);
+    });
+    s.disabled = ifs.length === 0;
+  }
+
+  $("pick").onclick = async () => {
+    try { show(await navigator.usb.requestDevice({ filters: [] })); }
+    catch (e) { log(e.name + ": " + e.message, "bad"); }
+  };
+  $("granted").onclick = async () => {
+    try {
+      const l = await navigator.usb.getDevices();
+      if (!l.length) { log("No devices granted to this site yet. Use Choose USB device first.", "bad"); return; }
+      show(l[0]);
+      if (l.length > 1) log(l.length + " devices granted; showing the first.");
+    } catch (e) { log(e.name + ": " + e.message, "bad"); }
+  };
+
+  $("open").onclick = async () => {
+    if (!dev) return;
+    try {
+      await dev.open();
+      log("Opened.", "ok");
+      if (dev.configuration === null && dev.configurations.length) {
+        await dev.selectConfiguration(dev.configurations[0].configurationValue);
+        log("Selected configuration " + dev.configurations[0].configurationValue + ".", "ok");
+      }
+      show(dev);
+      $("open").disabled = true;
+      $("claim").disabled = $("ifaces").disabled;
+      $("release").disabled = false;
+    } catch (e) { log("Open failed. " + e.name + ": " + e.message, "bad"); }
+  };
+
+  $("claim").onclick = async () => {
+    if (!dev) return;
+    const n = Number($("ifaces").value);
+    try {
+      await dev.claimInterface(n);
+      claimed = n;
+      log("Claimed interface " + n + ". Whatever driver held it has been detached.", "ok");
+      $("claim").disabled = true;
+    } catch (e) { log("Claim failed on interface " + n + ". " + e.name + ": " + e.message, "bad"); }
+  };
+
+  async function releaseAll() {
+    if (!dev) return;
+    try {
+      if (claimed !== null) { await dev.releaseInterface(claimed); log("Released interface " + claimed + ".", "ok"); claimed = null; }
+      if (dev.opened) { await dev.close(); log("Closed device.", "ok"); }
+    } catch (e) { log("Release failed. " + e.name + ": " + e.message, "bad"); }
+    $("release").disabled = true; $("claim").disabled = true; $("open").disabled = !dev;
+  }
+  $("release").onclick = releaseAll;
+  window.addEventListener("pagehide", () => { if (dev && dev.opened) { if (claimed !== null) dev.releaseInterface(claimed).catch(() => {}); dev.close().catch(() => {}); } });
+
+  if ("usb" in navigator) {
+    navigator.usb.addEventListener("disconnect", (ev) => { if (dev && ev.device === dev) { log("Device was unplugged.", "bad"); dev = null; claimed = null; $("open").disabled = true; $("claim").disabled = true; $("release").disabled = true; } });
+  }
+})();
+</script>
+</body>
+</html>
